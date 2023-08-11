@@ -9,7 +9,7 @@
     "dist"
   ],
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/peterparkernho"
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "build": "rimraf dist && rollup -c",
