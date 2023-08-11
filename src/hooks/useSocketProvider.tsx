@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { SocketContext } from "../components/SocketProvider/SocketProvider";
+import context from "../components/SocketProvider/context";
 
 const useSocketProvider = () => {
-  const context = useContext(SocketContext);
-  return context;
+  const contextValues = useContext(context);
+  return contextValues;
 }
 
 export default useSocketProvider;

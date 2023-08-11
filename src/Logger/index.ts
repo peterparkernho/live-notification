@@ -3,7 +3,7 @@ import chalk from 'chalk';
 
 
 const getPrefix = () => {
-  return `${chalk.bold.cyan(`[${new Date().toISOString()}]`)} ${chalk.bold.yellow('[socket]')}`;
+  return `${chalk.bold.cyan(`[${new Date().toISOString()}]`)} ${chalk.bold.yellow('[live-notification]')}`;
 };
 
 class Logger {
