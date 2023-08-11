@@ -9008,6 +9008,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jest-worker@npm:^24.0.0":
+  version: 24.9.0
+  resolution: "jest-worker@npm:24.9.0"
+  dependencies:
+    merge-stream: "npm:^2.0.0"
+    supports-color: "npm:^6.1.0"
+  checksum: b31637ee9d81691f8c40edf5052fc28a8468ce9b12e6aa86d1b87b63dde5cfc6dddddac3a4c39b63a8844e83626977bb419785d1ff50c541f51a687d23b83bd8
+  languageName: node
+  linkType: hard
+
 "jest-worker@npm:^27.4.5":
   version: 27.5.1
   resolution: "jest-worker@npm:27.5.1"
@@ -9355,6 +9365,7 @@ __metadata:
     rollup-plugin-dts: "npm:^5.3.0"
     rollup-plugin-peer-deps-external: "npm:^2.2.4"
     rollup-plugin-postcss: "npm:^4.0.2"
+    rollup-plugin-uglify: "npm:^6.0.4"
     sass: "npm:^1.61.0"
     socket.io-client: "npm:^4.7.2"
     storybook: "npm:^7.0.2"
@@ -11883,6 +11894,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rollup-plugin-uglify@npm:^6.0.4":
+  version: 6.0.4
+  resolution: "rollup-plugin-uglify@npm:6.0.4"
+  dependencies:
+    "@babel/code-frame": "npm:^7.0.0"
+    jest-worker: "npm:^24.0.0"
+    serialize-javascript: "npm:^2.1.2"
+    uglify-js: "npm:^3.4.9"
+  peerDependencies:
+    rollup: ">=0.66.0 <2"
+  checksum: 3d0df8436b0c6f6f4c22cab5cfe52b6b8fe9587be231564ba953739498c42c9ab8072b428c1f8e690716825845fbc9cff433ae81224848cbcb654b5f031c9055
+  languageName: node
+  linkType: hard
+
 "rollup-pluginutils@npm:^2.8.2":
   version: 2.8.2
   resolution: "rollup-pluginutils@npm:2.8.2"
@@ -12071,6 +12096,13 @@ __metadata:
     range-parser: "npm:~1.2.1"
     statuses: "npm:2.0.1"
   checksum: 670f134b35017d77ae82b02f04f5529651c4970887a5ffc581f003ed3858f8bda991eb1213e3b94f3c98acdcfc6a16cf83b58d330892662efe41d1d0d7993838
+  languageName: node
+  linkType: hard
+
+"serialize-javascript@npm:^2.1.2":
+  version: 2.1.2
+  resolution: "serialize-javascript@npm:2.1.2"
+  checksum: 8e0b4f4f6f536e835d6386be4b5fa072ef1354f9a774935a184f9bf51bf613d5a313c3ef2b638d9f5fe2da868bd0a8d907893e8144128e16bf51093dd4500dc4
   languageName: node
   linkType: hard
 
@@ -12628,6 +12660,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"supports-color@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "supports-color@npm:6.1.0"
+  dependencies:
+    has-flag: "npm:^3.0.0"
+  checksum: 2e225a95147766fd6d707ceceab81b5a0b296421353a5095422050cf3f823afec915965a7343773f1394467f11e31de505debacd1c89258bca05d86fd128696f
+  languageName: node
+  linkType: hard
+
 "supports-color@npm:^7.1.0":
   version: 7.2.0
   resolution: "supports-color@npm:7.2.0"
@@ -13067,7 +13108,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uglify-js@npm:^3.1.4":
+"uglify-js@npm:^3.1.4, uglify-js@npm:^3.4.9":
   version: 3.17.4
   resolution: "uglify-js@npm:3.17.4"
   bin:
