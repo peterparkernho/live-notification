@@ -3,7 +3,6 @@ import { WebSocket } from "../../Socket";
 
 export type SocketContext = {
   socket: WebSocket | undefined;
-  namespace: string;
   host: string;
   path: string;
 }

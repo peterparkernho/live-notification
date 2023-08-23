@@ -10,14 +10,13 @@ import context from './context';
 
 export interface SocketProviderProps extends Pick<React.ComponentPropsWithoutRef<'div'>, 'children'> {
   logger?: typeof console;
-  namespace: string;
   host: string;
   path: string;
   apiEndpoint?: string;
   wallet?: Wallet;
 }
 
-const SocketProvider = ({ children, logger, namespace, host, path, apiEndpoint, wallet }: SocketProviderProps) => {
+const SocketProvider = ({ children, logger, host, path, apiEndpoint, wallet }: SocketProviderProps) => {
   const [socket, setSocket] = useState<WebSocket>();
 
   useEffect(() => {
@@ -35,14 +34,14 @@ const SocketProvider = ({ children, logger, namespace, host, path, apiEndpoint, 
           address: wallet.address,
           signature: sign,
         });
-        setSocket(new WebSocket(namespace, host, path));
+        setSocket(new WebSocket(host, path));
       } else {
-        setSocket(new WebSocket(namespace, host, path));
+        setSocket(new WebSocket(host, path));
       }
     } else {
-      setSocket(new WebSocket(namespace, host, path));
+      setSocket(new WebSocket(host, path));
     }
-  }, [wallet, namespace, host, path]);
+  }, [wallet, host, path]);
 
   useEffect(() => {
     createWebSocket();
@@ -59,13 +58,11 @@ const SocketProvider = ({ children, logger, namespace, host, path, apiEndpoint, 
   const contextValue = useMemo(() => {
     return {
       socket,
-      namespace,
       host,
       path
     }
   }, [
     socket,
-    namespace,
     host,
     path
   ]);
