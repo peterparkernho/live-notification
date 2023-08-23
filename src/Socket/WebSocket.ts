@@ -7,15 +7,21 @@ import Logger from '../Logger';
 import { BASE_CHANNEL_ENUM } from './constants';
 import { ACCESS_TOKEN } from '../Constants';
 
+type Option = {
+  credential: boolean;
+}
+
 class WebSocket extends EventEmitter {
   private host: string
   private path: string
+  private opts: Option;
   private ws?: Socket;
 
-  constructor(_host: string, _path: string) {
+  constructor(_host: string, _path: string, _opts: Option) {
     super();
     this.host = _host;
     this.path = _path;
+    this.opts = _opts;
 
     Logger.info('WebSocket: constructor ', this.host, this.path);
 
@@ -38,18 +44,27 @@ class WebSocket extends EventEmitter {
 
   createConnection(): void {
     Logger.info('WebSocket: createConnection ', this.host, this.path);
-    const token = localStorage.getItem(ACCESS_TOKEN);
-    if (token) {
-      const opts: Partial<ManagerOptions & SocketOptions> = {
-        auth: {
-          token,
+    if (this.opts.credential) {
+      const token = localStorage.getItem(ACCESS_TOKEN);
+      if (token) {
+        const opts: Partial<ManagerOptions & SocketOptions> = {
+          auth: {
+            token,
+          }
+        };
+        if (this.path !== '') {
+          opts.path = this.path;
         }
-      };
-      if (this.path !== '') {
-        opts.path = this.path;
+        Logger.info('WebSocket: createConnection ', `${this.host}/${this.path}`, opts);
+        this.ws = io(`${this.host}`, opts);
+      } else {
+        const opts: Partial<ManagerOptions & SocketOptions> = {}
+        if (this.path !== '') {
+          opts.path = this.path;
+        }
+        Logger.info('WebSocket: createConnection with anonymous user', `${this.host}/${this.path}`, opts);
+        this.ws = io(`${this.host}`, opts);
       }
-      Logger.info('WebSocket: createConnection ', `${this.host}/${this.path}`, opts);
-      this.ws = io(`${this.host}`, opts);
     } else {
       const opts: Partial<ManagerOptions & SocketOptions> = {}
       if (this.path !== '') {

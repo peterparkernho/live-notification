@@ -34,12 +34,18 @@ const SocketProvider = ({ children, logger, host, path, apiEndpoint, wallet }: S
           address: wallet.address,
           signature: sign,
         });
-        setSocket(new WebSocket(host, path));
+        setSocket(new WebSocket(host, path, {
+          credential: true,
+        }));
       } else {
-        setSocket(new WebSocket(host, path));
+        setSocket(new WebSocket(host, path, {
+          credential: false,
+        }));
       }
     } else {
-      setSocket(new WebSocket(host, path));
+      setSocket(new WebSocket(host, path, {
+        credential: false,
+      }));
     }
   }, [wallet, host, path]);
 
