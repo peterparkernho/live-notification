@@ -49,14 +49,14 @@ class WebSocket extends EventEmitter {
         opts.path = this.path;
       }
       Logger.info('WebSocket: createConnection ', `${this.host}/${this.path}`, opts);
-      this.ws = io(`${this.host}/${this.path}`, opts);
+      this.ws = io(`${this.host}`, opts);
     } else {
       const opts: Partial<ManagerOptions & SocketOptions> = {}
       if (this.path !== '') {
         opts.path = this.path;
       }
       Logger.info('WebSocket: createConnection with anonymous user', `${this.host}/${this.path}`, opts);
-      this.ws = io(`${this.host}/${this.path}`, opts);
+      this.ws = io(`${this.host}`, opts);
     }
   }
 
