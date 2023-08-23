@@ -13,7 +13,7 @@ export interface SocketProviderProps extends Pick<React.ComponentPropsWithoutRef
   namespace: string;
   host: string;
   path: string;
-  apiEndpoint: string;
+  apiEndpoint?: string;
   wallet?: Wallet;
 }
 
@@ -25,16 +25,20 @@ const SocketProvider = ({ children, logger, namespace, host, path, apiEndpoint, 
   }, [logger]);
 
   const createWebSocket = useCallback(async () => {
-    if (!localStorage.getItem(ACCESS_TOKEN) && wallet) {
-      const api = new AuthApi(apiEndpoint);
-      const res = await api.loginByWallet();
-      const sign = await wallet.signMessage(res.message);
-      await api.completeLoginByWallet({
-        message: res.message,
-        address: wallet.address,
-        signature: sign,
-      });
-      setSocket(new WebSocket(namespace, host, path));
+    if (apiEndpoint) {
+      if (!localStorage.getItem(ACCESS_TOKEN) && wallet) {
+        const api = new AuthApi(apiEndpoint);
+        const res = await api.loginByWallet();
+        const sign = await wallet.signMessage(res.message);
+        await api.completeLoginByWallet({
+          message: res.message,
+          address: wallet.address,
+          signature: sign,
+        });
+        setSocket(new WebSocket(namespace, host, path));
+      } else {
+        setSocket(new WebSocket(namespace, host, path));
+      }
     } else {
       setSocket(new WebSocket(namespace, host, path));
     }
