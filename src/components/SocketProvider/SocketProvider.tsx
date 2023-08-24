@@ -1,5 +1,7 @@
+/* eslint-disable react/react-in-jsx-scope */
 // import React, { useCallback, useEffect, useMemo, useState } from "react";
-import * as React from "react";
+// import * as React from "react";
+// import React from 'react'
 import Logger from "../../Logger";
 import { WebSocket } from "../../Socket";
 import AuthApi from "../../Api";

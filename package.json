@@ -1,6 +1,6 @@
 {
   "name": "live-notification",
-  "version": "0.1.44",
+  "version": "0.1.52",
   "description": "Live Notification",
   "main": "dist/cjs/bundle.js",
   "module": "dist/esm/bundle.js",
@@ -38,10 +38,6 @@
     "url": "https://github.com/peterparkernho/rollup-react-library-starter/issues"
   },
   "homepage": "https://github.com/peterparkernho/rollup-react-library-starter",
-  "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
   "devDependencies": {
     "@babel/core": "^7.21.4",
     "@babel/preset-env": "^7.21.4",

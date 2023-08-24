@@ -18,11 +18,13 @@ export default [
 				file: pkg.main,
 				format: 'cjs',
 				sourcemap: true,
+				// globals: { react: 'React' }
 			},
 			{
 				file: pkg.module,
 				format: "esm",
 				sourcemap: true,
+				// globals: { react: 'React' }
 			},
 			/* {
 				file: 'dist/bundle.min.js',
