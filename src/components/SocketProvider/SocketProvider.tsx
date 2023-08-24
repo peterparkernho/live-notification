@@ -4,7 +4,6 @@ import Logger from "../../Logger";
 import { WebSocket } from "../../Socket";
 import AuthApi from "../../Api";
 
-import { Wallet } from 'ethers';
 import { ACCESS_TOKEN } from "../../Constants";
 
 import context from './context';
@@ -15,7 +14,7 @@ export interface SocketProviderProps extends Pick<React.ComponentPropsWithoutRef
   host: string;
   path: string;
   apiEndpoint?: string;
-  wallet?: Wallet;
+  wallet?: any;
 }
 
 const SocketProvider = ({ children, logger, host, path, apiEndpoint, wallet }: SocketProviderProps) => {
