@@ -41,12 +41,13 @@ export default [
 			postcss(),
 			terser(),
 			uglify(),
-		]
+		],
+		external: ["react", "react-dom"],
 	},
-	{
-		input: "dist/esm/types/index.d.ts",
-		output: [{ file: "dist/index.d.ts", format: "esm" }],
-		plugins: [dts()],
-		external: [/\.(css|less|scss)$/],
-	},
+	// {
+	// 	input: "dist/esm/types/index.d.ts",
+	// 	output: [{ file: "dist/index.d.ts", format: "esm" }],
+	// 	plugins: [dts()],
+	// 	external: [/\.(css|less|scss)$/],
+	// },
 ];

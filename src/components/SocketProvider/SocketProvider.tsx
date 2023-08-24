@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+// import React, { useCallback, useEffect, useMemo, useState } from "react";
+import * as React from "react";
 import Logger from "../../Logger";
 import { WebSocket } from "../../Socket";
 import AuthApi from "../../Api";
@@ -18,14 +19,14 @@ export interface SocketProviderProps extends Pick<React.ComponentPropsWithoutRef
 }
 
 const SocketProvider = ({ children, logger, host, path, apiEndpoint, wallet }: SocketProviderProps) => {
-  const [socket, setSocket] = useState<WebSocket>();
-  const [isConnected, setIsConnected] = useState(false);
+  const [socket, setSocket] = React.useState<WebSocket>();
+  const [isConnected, setIsConnected] = React.useState(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     Logger.setInstance(logger);
   }, [logger]);
 
-  const createWebSocket = useCallback(async () => {
+  const createWebSocket = React.useCallback(async () => {
     let _socket: WebSocket;
     if (apiEndpoint) {
       if (!localStorage.getItem(ACCESS_TOKEN) && wallet) {
@@ -87,11 +88,11 @@ const SocketProvider = ({ children, logger, host, path, apiEndpoint, wallet }: S
     }
   }, [wallet, host, path]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     createWebSocket();
   }, [createWebSocket])
 
-  useEffect(() => {
+  React.useEffect(() => {
     return () => {
       if (socket) {
         socket.disconnect();
@@ -99,7 +100,7 @@ const SocketProvider = ({ children, logger, host, path, apiEndpoint, wallet }: S
     }
   }, [socket])
 
-  const contextValue = useMemo(() => {
+  const contextValue = React.useMemo(() => {
     return {
       socket,
       host,

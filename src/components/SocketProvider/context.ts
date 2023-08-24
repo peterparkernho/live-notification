@@ -1,4 +1,5 @@
-import { createContext } from "react";
+// import { createContext } from "react";
+import * as React from "react";
 import { WebSocket } from "../../Socket";
 
 export type SocketContext = {
@@ -8,7 +9,7 @@ export type SocketContext = {
   isConnected: boolean;
 }
 
-const context =  createContext<SocketContext>({
+const context = React.createContext<SocketContext>({
   socket: undefined
 } as SocketContext);
 

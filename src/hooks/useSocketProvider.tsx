@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useCallback, useContext, useEffect, useRef } from "react";
+// import { useCallback, useContext, useEffect, useRef } from "react";
+import * as React from "react";
 import context from "../components/SocketProvider/context";
 
 const useSocketProvider = () => {
-  const { socket, isConnected } = useContext(context);
+  const { socket, isConnected } = React.useContext(context);
 
-  const socketRef = useRef(socket);
+  const socketRef = React.useRef(socket);
 
-  useEffect(() => {
+  React.useEffect(() => {
     socketRef.current = socket;
   }, []);
 
-  const sendEmit = useCallback((event: string | symbol, ...args: any[]) => {
+  const sendEmit = React.useCallback((event: string | symbol, ...args: any[]) => {
     if (socketRef.current) {
       return socketRef.current.sendEmit(event, ...args);
     }
