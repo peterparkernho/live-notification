@@ -1,3 +1,5 @@
+export type BaseEventName = 'connect' | 'reconnect' | 'reconnect_attempt' | 'reconnect_error' | 'reconnect_failed' | 'disconnect';
+
 export enum BASE_CHANNEL_ENUM {
   CONNECT = 'connect',
   RECONNECT = 'reconnect',

@@ -3,8 +3,12 @@
 // import React from 'react'
 import context from "../components/SocketProvider/context";
 import Logger from "../Logger";
+import { BaseEventName } from "../Socket/constants";
 
-function useSocketEvent<T>(event: string): T | undefined {
+
+type EventName = 'game-creation' | 'game-join' | 'game-finish-playing';
+
+function useSocketEvent<T>(event: EventName | BaseEventName): T | undefined {
   const [data, setData] = React.useState<T>();
   const { socket, isConnected } = React.useContext(context);
 
