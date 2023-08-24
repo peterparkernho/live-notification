@@ -12,7 +12,7 @@ const useSocketProvider = () => {
     socketRef.current = socket;
   }, []);
 
-  const sendEmit = React.useCallback((event: string | symbol, ...args: any[]): any => {
+  const sendEmit = React.useCallback((event: string | symbol, ...args: any[]) => {
     if (socketRef.current) {
       return socketRef.current.sendEmit(event, ...args);
     }
