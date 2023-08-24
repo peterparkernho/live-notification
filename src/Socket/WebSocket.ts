@@ -1,24 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import EventEmitter from 'events';
 import {
   io, ManagerOptions, Socket, SocketOptions,
 } from 'socket.io-client';
 import Logger from '../Logger';
-import { BASE_CHANNEL_ENUM } from './constants';
 import { ACCESS_TOKEN } from '../Constants';
 
 type Option = {
   credential: boolean;
 }
 
-class WebSocket extends EventEmitter {
+class WebSocket {
   private host: string
   private path: string
   private opts: Option;
   private ws?: Socket;
 
   constructor(_host: string, _path: string, _opts: Option) {
-    super();
     this.host = _host;
     this.path = _path;
     this.opts = _opts;
@@ -72,6 +69,14 @@ class WebSocket extends EventEmitter {
       Logger.info('WebSocket: createConnection with anonymous user', `${this.host}/${this.path}`, opts);
       this.ws = io(`${this.host}`, opts);
     }
+  }
+
+  addEventListener(eventName: string, handler: (...rest: any) => void) {
+    this.ws?.on(eventName, handler);
+  }
+
+  removeEventListener(eventName: string, handler: (...rest: any) => void) {
+    this.ws?.off(eventName, handler);
   }
 
   sendEmit(event: string | symbol, ...args: any[]): WebSocket {

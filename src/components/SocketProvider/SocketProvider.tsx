@@ -54,32 +54,33 @@ const SocketProvider = ({ children, logger, host, path, apiEndpoint, wallet }: S
     setSocket(_socket);
 
     if (_socket) {
-      _socket.on(BASE_CHANNEL_ENUM.CONNECT, ((data: unknown) => {
+      Logger.info(`WebSocket: listen base events`);
+      _socket.addEventListener(BASE_CHANNEL_ENUM.CONNECT, ((data: unknown) => {
         setIsConnected(_socket.isConnected);
         Logger.info(`WebSocket: Received `, BASE_CHANNEL_ENUM.CONNECT, _socket.isConnected, data);
       }));
   
-      _socket.on(BASE_CHANNEL_ENUM.RECONNECT, (data: unknown) => {
+      _socket.addEventListener(BASE_CHANNEL_ENUM.RECONNECT, (data: unknown) => {
         setIsConnected(_socket.isConnected);
         Logger.info(`WebSocket: Received `, BASE_CHANNEL_ENUM.RECONNECT, _socket.isConnected, data);
       });
   
-      _socket.on(BASE_CHANNEL_ENUM.RECONNECT_ATTEMPT, (data: unknown) => {
+      _socket.addEventListener(BASE_CHANNEL_ENUM.RECONNECT_ATTEMPT, (data: unknown) => {
         setIsConnected(_socket.isConnected);
         Logger.info(`WebSocket: Received `, BASE_CHANNEL_ENUM.RECONNECT_ATTEMPT, _socket.isConnected, data);
       });
   
-      _socket.on(BASE_CHANNEL_ENUM.RECONNECT_ERROR, (data: unknown) => {
+      _socket.addEventListener(BASE_CHANNEL_ENUM.RECONNECT_ERROR, (data: unknown) => {
         setIsConnected(_socket.isConnected);
         Logger.info(`WebSocket: Received `, BASE_CHANNEL_ENUM.RECONNECT_ERROR, _socket.isConnected, data);
       });
   
-      _socket.on(BASE_CHANNEL_ENUM.RECONNECT_FAILED, (data: unknown) => {
+      _socket.addEventListener(BASE_CHANNEL_ENUM.RECONNECT_FAILED, (data: unknown) => {
         setIsConnected(_socket.isConnected);
         Logger.info(`WebSocket: Received `, BASE_CHANNEL_ENUM.RECONNECT_FAILED, _socket.isConnected, data);
       });
   
-      _socket.on(BASE_CHANNEL_ENUM.DISCONNECT, (data: unknown) => {
+      _socket.addEventListener(BASE_CHANNEL_ENUM.DISCONNECT, (data: unknown) => {
         setIsConnected(_socket.isConnected);
         Logger.info(`WebSocket: Received `, BASE_CHANNEL_ENUM.DISCONNECT, _socket.isConnected, data);
       });

@@ -14,7 +14,7 @@ function useSocketEvent<T>(event: string): T | undefined {
 
     if (socket && isConnected) {
       Logger.info(`Subscribe WebSocket event: ${event} start`);
-      socket.on(event, handler);
+      socket.addEventListener(event, handler);
     } else {
       Logger.info(`Subscribe WebSocket event: ${event} waiting`);
     }
@@ -22,7 +22,7 @@ function useSocketEvent<T>(event: string): T | undefined {
     return () => {
       if (socket) {
         Logger.info(`UnSubscribe WebSocket event: ${event}`);
-        socket.off(event, handler);
+        socket.removeEventListener(event, handler);
       }
     }
   }, [socket, event, isConnected]);
