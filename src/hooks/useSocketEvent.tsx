@@ -4,7 +4,7 @@ import Logger from "../Logger";
 
 function useSocketEvent<T>(event: string): T | undefined {
   const [data, setData] = useState<T>();
-  const { socket } = useContext(context);
+  const { socket, isConnected } = useContext(context);
 
   useEffect(() => {
     const handler = (data: T) => {
@@ -12,17 +12,20 @@ function useSocketEvent<T>(event: string): T | undefined {
       setData(data)
     }
 
-    if (socket) {
-      Logger.info(`Subscribe WebSocket event: ${event}`);
+    if (socket && isConnected) {
+      Logger.info(`Subscribe WebSocket event: ${event} start`);
       socket.on(event, handler);
+    } else {
+      Logger.info(`Subscribe WebSocket event: ${event} waiting`);
     }
 
     return () => {
       if (socket) {
+        Logger.info(`UnSubscribe WebSocket event: ${event}`);
         socket.off(event, handler);
       }
     }
-  }, [socket, event]);
+  }, [socket, event, isConnected]);
 
   return data;
 }

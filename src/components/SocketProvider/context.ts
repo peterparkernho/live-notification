@@ -5,6 +5,7 @@ export type SocketContext = {
   socket: WebSocket | undefined;
   host: string;
   path: string;
+  isConnected: boolean;
 }
 
 const context =  createContext<SocketContext>({

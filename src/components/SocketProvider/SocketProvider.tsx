@@ -65,7 +65,8 @@ const SocketProvider = ({ children, logger, host, path, apiEndpoint, wallet }: S
     return {
       socket,
       host,
-      path
+      path,
+      isConnected: socket?.isConnected || false
     }
   }, [
     socket,
