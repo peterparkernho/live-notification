@@ -13,6 +13,7 @@ function useSocketEvent<T>(event: string): T | undefined {
     }
 
     if (socket) {
+      Logger.info(`Subscribe WebSocket event: ${event}`);
       socket.on(event, handler);
     }
 
