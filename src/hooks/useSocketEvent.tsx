@@ -8,12 +8,12 @@ import { BaseEventName } from "../Socket/constants";
 
 type EventName = 'game-creation' | 'game-join' | 'game-finish-playing';
 
-function useSocketEvent<T>(event: EventName | BaseEventName): T | undefined {
-  const [data, setData] = React.useState<T>();
+function useSocketEvent<ReturnDataType>(event: EventName | BaseEventName): ReturnDataType | undefined {
+  const [data, setData] = React.useState<ReturnDataType>();
   const { socket, isConnected } = React.useContext(context);
 
   React.useEffect(() => {
-    const handler = (data: T) => {
+    const handler = (data: ReturnDataType) => {
       Logger.info(`WebSocket: ${event} `, data);
       setData(data)
     }
@@ -33,7 +33,7 @@ function useSocketEvent<T>(event: EventName | BaseEventName): T | undefined {
     }
   }, [socket, event, isConnected]);
 
-  return data;
+  return data as ReturnDataType;
 }
 
 export default useSocketEvent;
