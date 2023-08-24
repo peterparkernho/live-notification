@@ -3,8 +3,10 @@ import { useCallback, useContext, useEffect, useRef } from "react";
 import context from "../components/SocketProvider/context";
 
 const useSocketProvider = () => {
-  const { socket } = useContext(context);
+  const { socket, isConnected } = useContext(context);
+
   const socketRef = useRef(socket);
+
   useEffect(() => {
     socketRef.current = socket;
   }, []);
@@ -16,6 +18,8 @@ const useSocketProvider = () => {
   }, []);
 
   return {
+    socket,
+    isConnected,
     sendEmit,
   };
 }
