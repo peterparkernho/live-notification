@@ -1,12 +1,12 @@
-import * as React from 'react';
+import { useContext, useEffect, useState } from "react";
 import context from "../components/SocketProvider/context";
 import Logger from "../Logger";
 
 function useSocketEvent<T>(event: string): T | undefined {
-  const [data, setData] = React.useState<T>();
-  const { socket, isConnected } = React.useContext(context);
+  const [data, setData] = useState<T>();
+  const { socket, isConnected } = useContext(context);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handler = (data: T) => {
       Logger.info(`WebSocket: ${event} `, data);
       setData(data)
