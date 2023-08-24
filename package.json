@@ -1,6 +1,6 @@
 {
   "name": "live-notification",
-  "version": "0.1.29",
+  "version": "0.1.33",
   "description": "Live Notification",
   "main": "dist/cjs/bundle.js",
   "module": "dist/esm/bundle.js",
