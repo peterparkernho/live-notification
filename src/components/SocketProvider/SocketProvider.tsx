@@ -7,6 +7,7 @@ import { Wallet } from 'ethers';
 import { ACCESS_TOKEN } from "../../Constants";
 
 import context from './context';
+import { BASE_CHANNEL_ENUM } from "../../Socket/constants";
 
 export interface SocketProviderProps extends Pick<React.ComponentPropsWithoutRef<'div'>, 'children'> {
   logger?: typeof console;
@@ -18,12 +19,14 @@ export interface SocketProviderProps extends Pick<React.ComponentPropsWithoutRef
 
 const SocketProvider = ({ children, logger, host, path, apiEndpoint, wallet }: SocketProviderProps) => {
   const [socket, setSocket] = useState<WebSocket>();
+  const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
     Logger.setInstance(logger);
   }, [logger]);
 
   const createWebSocket = useCallback(async () => {
+    let _socket: WebSocket;
     if (apiEndpoint) {
       if (!localStorage.getItem(ACCESS_TOKEN) && wallet) {
         const api = new AuthApi(apiEndpoint);
@@ -34,18 +37,52 @@ const SocketProvider = ({ children, logger, host, path, apiEndpoint, wallet }: S
           address: wallet.address,
           signature: sign,
         });
-        setSocket(new WebSocket(host, path, {
+        _socket = new WebSocket(host, path, {
           credential: true,
-        }));
+        });
       } else {
-        setSocket(new WebSocket(host, path, {
+        _socket = new WebSocket(host, path, {
           credential: false,
-        }));
+        });
       }
     } else {
-      setSocket(new WebSocket(host, path, {
+      _socket = new WebSocket(host, path, {
         credential: false,
+      });
+    }
+
+    setSocket(_socket);
+
+    if (_socket) {
+      _socket.on(BASE_CHANNEL_ENUM.CONNECT, ((data: unknown) => {
+        setIsConnected(_socket.isConnected);
+        Logger.info(`WebSocket: Received `, BASE_CHANNEL_ENUM.CONNECT, _socket.isConnected, data);
       }));
+  
+      _socket.on(BASE_CHANNEL_ENUM.RECONNECT, (data: unknown) => {
+        setIsConnected(_socket.isConnected);
+        Logger.info(`WebSocket: Received `, BASE_CHANNEL_ENUM.RECONNECT, _socket.isConnected, data);
+      });
+  
+      _socket.on(BASE_CHANNEL_ENUM.RECONNECT_ATTEMPT, (data: unknown) => {
+        setIsConnected(_socket.isConnected);
+        Logger.info(`WebSocket: Received `, BASE_CHANNEL_ENUM.RECONNECT_ATTEMPT, _socket.isConnected, data);
+      });
+  
+      _socket.on(BASE_CHANNEL_ENUM.RECONNECT_ERROR, (data: unknown) => {
+        setIsConnected(_socket.isConnected);
+        Logger.info(`WebSocket: Received `, BASE_CHANNEL_ENUM.RECONNECT_ERROR, _socket.isConnected, data);
+      });
+  
+      _socket.on(BASE_CHANNEL_ENUM.RECONNECT_FAILED, (data: unknown) => {
+        setIsConnected(_socket.isConnected);
+        Logger.info(`WebSocket: Received `, BASE_CHANNEL_ENUM.RECONNECT_FAILED, _socket.isConnected, data);
+      });
+  
+      _socket.on(BASE_CHANNEL_ENUM.DISCONNECT, (data: unknown) => {
+        setIsConnected(_socket.isConnected);
+        Logger.info(`WebSocket: Received `, BASE_CHANNEL_ENUM.DISCONNECT, _socket.isConnected, data);
+      });
     }
   }, [wallet, host, path]);
 
@@ -66,12 +103,13 @@ const SocketProvider = ({ children, logger, host, path, apiEndpoint, wallet }: S
       socket,
       host,
       path,
-      isConnected: socket?.isConnected || false
+      isConnected
     }
   }, [
     socket,
     host,
-    path
+    path,
+    isConnected
   ]);
 
   return (

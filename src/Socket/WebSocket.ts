@@ -35,7 +35,6 @@ class WebSocket extends EventEmitter {
   init(): void {
     Logger.info('WebSocket: init ', this.host, this.path);
     this.createConnection();
-    this.listen();
   }
 
   disconnect(): void {
@@ -73,33 +72,6 @@ class WebSocket extends EventEmitter {
       Logger.info('WebSocket: createConnection with anonymous user', `${this.host}/${this.path}`, opts);
       this.ws = io(`${this.host}`, opts);
     }
-  }
-
-  listen(): void {
-    Logger.info('WebSocket: listen ', this.path, this.host);
-    this.ws?.on(BASE_CHANNEL_ENUM.CONNECT, ((data: unknown) => {
-      Logger.info(`WebSocket: Received `, BASE_CHANNEL_ENUM.CONNECT, this.ws?.connected, data);
-    }) as any);
-
-    this.ws?.on(BASE_CHANNEL_ENUM.RECONNECT, (data: unknown) => {
-      Logger.info(`WebSocket: Received `, BASE_CHANNEL_ENUM.RECONNECT, this.ws?.connected, data);
-    });
-
-    this.ws?.on(BASE_CHANNEL_ENUM.RECONNECT_ATTEMPT, (data: unknown) => {
-      Logger.info(`WebSocket: Received `, BASE_CHANNEL_ENUM.RECONNECT_ATTEMPT, this.ws?.connected, data);
-    });
-
-    this.ws?.on(BASE_CHANNEL_ENUM.RECONNECT_ERROR, (data: unknown) => {
-      Logger.info(`WebSocket: Received `, BASE_CHANNEL_ENUM.RECONNECT_ERROR, this.ws?.connected, data);
-    });
-
-    this.ws?.on(BASE_CHANNEL_ENUM.RECONNECT_FAILED, (data: unknown) => {
-      Logger.info(`WebSocket: Received `, BASE_CHANNEL_ENUM.RECONNECT_FAILED, this.ws?.connected, data);
-    });
-
-    this.ws?.on(BASE_CHANNEL_ENUM.DISCONNECT, (data: unknown) => {
-      Logger.info(`WebSocket: Received `, BASE_CHANNEL_ENUM.DISCONNECT, this.ws?.connected, data);
-    });
   }
 
   sendEmit(event: string | symbol, ...args: any[]): WebSocket {
